@@ -20,8 +20,8 @@ class Jukebox {
 
 	nextAudio() {
 		this.currentSongIndex++;
-		document.getElementById('myAudio').setAttribute('src', 'songs/' + this.songs[this.currentSongIndex]);
-		
+		this.song.setAttribute('src', 'songs/' + this.songs[this.currentSongIndex]);
+		this.song.load();
 	}
 }
 

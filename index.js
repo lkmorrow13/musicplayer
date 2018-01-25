@@ -22,10 +22,19 @@ class Jukebox {
 		this.currentSongIndex++;
 		this.song.setAttribute('src', 'songs/' + this.songs[this.currentSongIndex]);
 		this.song.load();
+		this.song.play();
 	}
 
 	audioTime() {
-		ontimeupdate(document.getElementById('tracktime').innerHTML = Math.floor(this.currentTime) + ' / ' + Math.floor(this.duration));
+		var minutes = Math.floor(this.song.duration / 60);
+		var seconds = Math.floor(this.song.duration - minutes * 60);
+		seconds = seconds > 9 ? seconds : '0' + seconds;
+		var mintime = Math.floor(this.song.currentTime / 60);
+		var sectime = Math.floor(this.song.currentTime - mintime * 60);
+		sectime = sectime > 9 ? sectime : '0' + sectime;
+		return mintime + ' : ' + sectime + ' / ' + minutes + ' : ' + seconds;
+		console.log(mintime + ' : ' + sectime);
+		console.log(minutes + ' : ' + seconds);
 	}
 
 	getSongName() {
@@ -54,4 +63,8 @@ document.getElementById('nextbutton').addEventListener('click', function() {
 
 audio.addEventListener('play', function() {
 	document.getElementById('songName').innerText = jukebox.getSongName();
+})
+
+audio.addEventListener('timeupdate', function() {
+	document.getElementById('tracktime').innerHTML = jukebox.audioTime();
 })

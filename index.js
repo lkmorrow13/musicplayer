@@ -23,6 +23,14 @@ class Jukebox {
 		this.song.setAttribute('src', 'songs/' + this.songs[this.currentSongIndex]);
 		this.song.load();
 	}
+
+	audioTime() {
+		ontimeupdate(document.getElementById('tracktime').innerHTML = Math.floor(this.currentTime) + ' / ' + Math.floor(this.duration));
+	}
+
+	getSongName() {
+		return this.songs[this.currentSongIndex];
+	}
 }
 
 var audio = document.getElementById('myAudio');
@@ -42,4 +50,8 @@ document.getElementById('stopbutton').addEventListener('click', function() {
 
 document.getElementById('nextbutton').addEventListener('click', function() {
 	jukebox.nextAudio();
+})
+
+audio.addEventListener('play', function() {
+	document.getElementById('songName').innerText = jukebox.getSongName();
 })
